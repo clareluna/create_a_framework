@@ -1,0 +1,19 @@
+{
+  "name": "create_a_framework",
+  "version": "0.1.0",
+  "description": "writeHead framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/clareluna/create_a_framework.git"
+  },
+  "author": "Clare Monahan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/clareluna/create_a_framework/issues"
+  },
+  "homepage": "https://github.com/clareluna/create_a_framework#readme"
+}
