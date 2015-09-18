@@ -14,22 +14,20 @@ describe('the basic router functions', function() {
 			console.log('server running at port 3000');
 		});
 		router.get('/test', function(req, res) { //sets up get response
-			res.header(200, {'content-type': 'text/plain'});// not sure what to put in here
+			res.header(200, {'content-type': 'text/plain'});
 			res.send('testing 1, 2, 3');
 		});
 
-		router.post('/', function(req, res) { //sets up post request
+		router.post('/test', function(req, res) { //sets up post request
 			res.json(req);
 		});	
 	});
 
 	it('should be able to respond to a get request', function(done){
-		chai.request('localhost:3000')
-			.get('/test') // do I need to include header data here?
-			.header(200, {'content-type': 'text/plain'}) //set header from routes.route
-			.send('testing 1, 2, 3') //set response from router.routes
+		chai.request('localhost:3000') //undefined is not a function?
+			.get('/test') 
 			.end(function(err, res){
-
+				expect(res.status).to.eql(200)
 			})
 		this.router.get('/test', function(req, res) {
 			expect(res.test).to.eql('testing 1, 2, 3');
@@ -42,7 +40,7 @@ describe('the basic router functions', function() {
 			method: 'POST', 
 			url: '/test'
 		};
-		this.router.post('/test', function(req, res) {
+		router.post('/test', function(req, res) {
 			expect(res.test).to.eql('testing 1, 2, 3');
 		});
 		this.router.route(testReq, testRes); 
