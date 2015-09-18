@@ -1,82 +1,70 @@
 'use strict';
 var Router = require(__dirname + './../lib/router');
 var chai = require('chai');
+var chaiHTTP = require('chai-http');
+chai.use(chaiHTTP)
 var expect = chai.expect;
 var fs = require('fs');
 var http = require('http');
+var url = 'localhost:3000';
 		
 var router = new Router();
+console.log('')
+console.log('router', router);
+// console.log('routter.get', router.get)
 
-describe('the basic router functions', function() {
-	console.log('before each');
-	beforeEach(function() {
-		http.createServer(router.route).listen(3000, function(){
-			console.log('server running at port 3000');
-		});
-		router.get('/test', function(req, res) { //sets up get response
-			res.header(200, {'content-type': 'text/plain'});
-			res.send('testing 1, 2, 3');
-		});
+router.get('/hello', function(req, res){
+	// console.log('res,', res)
+		// console.log('data res', res)
 
-		router.post('/test', function(req, res) { //sets up post request
-			res.json(req);
-		});	
-	});
+	res.send(200, 'hello')
+	// res.writeHead(200, {"Content-Type": 'text/plain'})
+	// res.write('hello');
+	// res.end();
+});	
 
-	it('should be able to respond to a get request', function(done){
-		chai.request('localhost:3000') //undefined is not a function?
-			.get('/test') 
-			.end(function(err, res){
-				expect(res.status).to.eql(200)
-			})
-		this.router.get('/test', function(req, res) {
-			expect(res.test).to.eql('testing 1, 2, 3');
-		});
-		this.router.route(testReq, testRes); 
-	});	
+console.log('router with git', router)
 
-	it('should be able to set up post request', function(){
-		var testReq = { 
-			method: 'POST', 
-			url: '/test'
-		};
-		router.post('/test', function(req, res) {
-			expect(res.test).to.eql('testing 1, 2, 3');
-		});
-		this.router.route(testReq, testRes); 
-	});		
-});
 
-// describe('the advanced router functions', function () {
-// 	beforeEach(function() {
-// 		this.router = Router(); //start new router
-// 	});
 
-// 	it('should be able to add a header to a get request', function() {
-// 		var testReq = {
-// 			method: 'GET',
-// 			url: '/test'
-// 		};
-// 		// var testRes.header = {'content-type': 'text/plain'};
-	
-// 	//this.router.get('/test', function(req, res) {
-// 			//expect(res.header['Content-Type']).to.eql('text/plain'); coming back undefined in prev test
-// 		// });
-// 		//this.router.route(testReq, testRes); // should I be including writeHead data in testReq?
-// 	});
+// describe('the basic router functions', function() {
+// 	// beforeEach(function() {
+// 	// 	http.createServer(router.route).listen(3000, function(){
+// 	// 		console.log('server running at port 3000');
+// 	// 	});
+// 	// 	router.get('/test', function(req, res) { //sets up get response
+// 	// 		console.log('type of res.header' + typeof res.header);
+// 	// 		res.header;
+// 	// 		console.log('res.header ' +res.header)
+// 	// 		res.send('testing 1, 2, 3');
+// 	// 	});
 
-// 	it('should be able to process post data and save the json data into req.body', function() {
-// 		var testReq = {
-// 			method: 'POST',
-// 			url: '/test'
-// 			//data? to be used as body/chunk
-// 		}
-// 		var testRes = { // what data I expect to become a 'file'
-// 		};
-// 		// this.router.post('/test', function(req, res) {
-// 		// expect(__dirname + './../files').to.have(__dirname + './../files/' + body + '.txt');
+// 	// 	router.post('/test', function(req, res) { //sets up post request
+// 	// 		res.json(req);// needs work
+// 	// 	});	
+// 	// });
+
+// 	it('should be able to respond to a get request', function(done) {
+// 		chai.request(url) //undefined is not a function?
+// 			.get('/test') 
+// 			.end(function(err, res){
+// 			console.log('res.header in chai request ' +JSON.stringify(res.header))
+// 				expect(res.status).to.eql(200);
+// 				// expect(res.header).to.eql({'content-type': 'text/plain'});
+// 				expect(res.body).to.eql('testing 1, 2, 3');
+// 			done();	
 // 		});
 // 	});
-// // });
+// });		
 
-// 			
+// 	it('should be able to set up post request', function(){
+// 		var testReq = { 
+// 			method: 'POST', 
+// 			url: '/test'
+// 		};
+// 		router.post('/test', function(req, res) {
+// 			expect(res.test).to.eql('testing 1, 2, 3');
+// 		});
+// 		this.router.route(testReq, testRes); 
+// 	});		
+// });
