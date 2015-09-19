@@ -7,27 +7,31 @@ var expect = chai.expect;
 var fs = require('fs');
 var http = require('http');
 var url = 'localhost:3000';
-		
-var router = new Router();
-console.log('')
-console.log('router', router);
-// console.log('routter.get', router.get)
+var app = require('./../lib/app');
 
-router.get('/hello', function(req, res){
-	// console.log('res,', res)
-		// console.log('data res', res)
+var myRouter = new app.Router(); // appending app with Router object
 
-	res.send(200, 'hello')
-	// res.writeHead(200, {"Content-Type": 'text/plain'})
-	// res.write('hello');
-	// res.end();
-});	
+myRouter.get('/test', function(req, res) { // giving method values to myRouter framework
+	res.send(200, 'this is a test'); //setting the send params
+});
 
-console.log('router with git', router)
+app.createServer(myRouter);	// creating the server from the app framework
 
+app.start(3030, function() {
+	console.log('server was started on port 3030');
+})	
+// then run the expects here
+//expect
 
+console.log(myRouter);
 
-// describe('the basic router functions', function() {
+// describe('the server started', function() {
+// 	before(function() {
+// 		app.createServer(myRouter);
+// 	})
+// })
+
+//describe('the basic router functions', function() {
 // 	// beforeEach(function() {
 // 	// 	http.createServer(router.route).listen(3000, function(){
 // 	// 		console.log('server running at port 3000');
