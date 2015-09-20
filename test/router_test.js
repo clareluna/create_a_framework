@@ -11,64 +11,47 @@ var app = require('./../lib/app');
 
 var myRouter = new app.Router(); // appending app with Router object
 
-myRouter.get('/test', function(req, res) { // giving method values to myRouter framework
-	res.send(200, 'this is a test'); //setting the send params
-});
-
 app.createServer(myRouter);	// creating the server from the app framework
 
-app.start(3030, function() {
-	console.log('server was started on port 3030');
-})	
-// then run the expects here
-//expect
 
 console.log(myRouter);
 
-// describe('the server started', function() {
-// 	before(function() {
-// 		app.createServer(myRouter);
-// 	})
-// })
+describe('the server testing', function() {
+	before(function(done) {
+		app.createServer(myRouter);
+		myRouter.get('/test', function(){
+			res.send(200, 'testing 1, 2, 3')
+		})
+		app.start(3030, function() {
+			console.log('server started on port 3030');
+			done();
+		});
+	});
 
-//describe('the basic router functions', function() {
-// 	// beforeEach(function() {
-// 	// 	http.createServer(router.route).listen(3000, function(){
-// 	// 		console.log('server running at port 3000');
-// 	// 	});
-// 	// 	router.get('/test', function(req, res) { //sets up get response
-// 	// 		console.log('type of res.header' + typeof res.header);
-// 	// 		res.header;
-// 	// 		console.log('res.header ' +res.header)
-// 	// 		res.send('testing 1, 2, 3');
-// 	// 	});
-
-// 	// 	router.post('/test', function(req, res) { //sets up post request
-// 	// 		res.json(req);// needs work
-// 	// 	});	
-// 	// });
-
-// 	it('should be able to respond to a get request', function(done) {
-// 		chai.request(url) //undefined is not a function?
-// 			.get('/test') 
-// 			.end(function(err, res){
-// 			console.log('res.header in chai request ' +JSON.stringify(res.header))
-// 				expect(res.status).to.eql(200);
-// 				// expect(res.header).to.eql({'content-type': 'text/plain'});
-// 				expect(res.body).to.eql('testing 1, 2, 3');
-// 			done();	
-// 		});
-// 	});
-// });		
-
-// 	it('should be able to set up post request', function(){
-// 		var testReq = { 
-// 			method: 'POST', 
-// 			url: '/test'
-// 		};
-// 		router.post('/test', function(req, res) {
-// 			expect(res.test).to.eql('testing 1, 2, 3');
-// 		});
-// 		this.router.route(testReq, testRes); 
-// 	});		
-// });
+	it('should be able to start the server at specific port', function() {
+		myRouter.get('/test', function() {
+			res.end(function(err, res) {
+				if(err) console.log(err);
+				expect(res.status).to.eql(200);	
+			});	
+		});	
+	});
+	
+	it('should be able to write the body', function() {
+		myRouter.get('/test', function(){
+			res.end(function(err, res) {
+				if(err) console.log(err);
+				expect(res.body).to.eql('testing 1, 2, 3');
+			});
+		});
+	});
+	
+	it('should write proper header', function() {
+		myRouter.get('/test', function() {
+			res.end(function(err, res) {
+				if(err) console.log(err);
+				expect(res.status).to.eql(200);
+			});
+		});
+	});
+});
