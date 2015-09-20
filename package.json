@@ -1,6 +1,6 @@
 {
   "name": "create_a_framework",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "writeHead framework",
   "main": "server.js",
   "scripts": {
