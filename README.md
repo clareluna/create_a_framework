@@ -28,7 +28,7 @@ Sets the functionality to respond to get requests
 
 -__myRouter.get([route], function(err, res) {
 	res.send([statusCode], [request data])
-}); 
+});__
 User provides route, status code, and request data to build the response from get request. If no status code provided, will default to 200.
 
 -__app.createServer(myRouter)__
